@@ -31,7 +31,7 @@ public final class SerializationSave {
     }
 
     private void readSerializableObject(PlayerData playerData) {
-        PlayerData newPlayerData = null;
+        PlayerData newPlayerData;
         try (FileInputStream inputStream = new FileInputStream("serialized-data.json")) {
             try (ObjectInput playerDataInput = new ObjectInputStream(inputStream)) {
                 newPlayerData = (PlayerData) playerDataInput.readObject();
