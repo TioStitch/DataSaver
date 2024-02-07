@@ -11,7 +11,7 @@ public final class SplitedSave {
         playerData.setCoins(1000);
         playerData.setGems(250);
 
-        final File file = new File("splited-data.txt");
+        final File file = new File("separatedsplit-data.txt");
         if (!file.exists()) {
             file.createNewFile();
         }
