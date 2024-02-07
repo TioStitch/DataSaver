@@ -1,5 +1,7 @@
 package org.tiostitch.datasaver;
 
+import org.tiostitch.datasaver.data.PlayerData;
+
 import java.io.*;
 
 public final class SerializationSave {
@@ -11,36 +13,35 @@ public final class SerializationSave {
         playerData.setCoins(1000);
         playerData.setGems(250);
 
+        writeSerializableObject(playerData);
+        readSerializableObject(playerData);
+    }
+
+    private void writeSerializableObject(PlayerData playerData) {
         try (FileOutputStream outputStream = new FileOutputStream("serialized-data.json")) {
             try (ObjectOutput playerDataOutput = new ObjectOutputStream(outputStream)) {
 
                 playerDataOutput.writeObject(playerData);
-
                 playerDataOutput.flush();
                 outputStream.flush();
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
 
+    private void readSerializableObject(PlayerData playerData) {
         PlayerData newPlayerData = null;
         try (FileInputStream inputStream = new FileInputStream("serialized-data.json")) {
             try (ObjectInput playerDataInput = new ObjectInputStream(inputStream)) {
                 newPlayerData = (PlayerData) playerDataInput.readObject();
-            } catch(ClassNotFoundException e) {
-                e.printStackTrace();
+                Utils.printar(newPlayerData);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        assert newPlayerData != null;
-        printar(newPlayerData);
-    }
-
-    private void printar(PlayerData playerData) {
-        System.out.println();
-        System.out.println("Dados do Jogador:");
-        System.out.println("Nome: " + playerData.getName());
-        System.out.println("Coins: " + playerData.getCoins());
-        System.out.println("Gems: " + playerData.getGems());
-        System.out.println();
     }
 
     public static void main(String[] args) throws IOException {

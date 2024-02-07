@@ -1,4 +1,4 @@
-package org.tiostitch.datasaver;
+package org.tiostitch.datasaver.data;
 
 import lombok.Getter;
 import lombok.Setter;

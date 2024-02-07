@@ -1,10 +1,12 @@
 package org.tiostitch.datasaver;
 
+import org.tiostitch.datasaver.data.PlayerData;
+
 import java.io.*;
 
-public final class SplitedSave {
+public final class SplitSave {
 
-    private SplitedSave() {
+    private SplitSave() {
 
         final PlayerData playerData = new PlayerData();
         playerData.setName("User");
@@ -25,7 +27,7 @@ public final class SplitedSave {
             newPlayerData.setCoins(Integer.parseInt(splittedbar[1]));
             newPlayerData.setGems(Integer.parseInt(splittedbar[2]));
 
-            printar(newPlayerData);
+            Utils.printar(newPlayerData);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -40,20 +42,11 @@ public final class SplitedSave {
         }
     }
 
-    private void printar(PlayerData playerData) {
-        System.out.println();
-        System.out.println("Dados do Jogador:");
-        System.out.println("Nome: " + playerData.getName());
-        System.out.println("Coins: " + playerData.getCoins());
-        System.out.println("Gems: " + playerData.getGems());
-        System.out.println();
-    }
-
     private String splittedPlayerSave(PlayerData pD) {
         return pD.getName() + ":" + pD.getCoins() + ":" + pD.getGems();
     }
 
     public static void main(String[] args) throws IOException {
-        new SplitedSave();
+        new SplitSave();
     }
 }
